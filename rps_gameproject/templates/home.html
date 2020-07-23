@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissor</title>
+    <p style="color:red;font-size:80px;text-align:center">!!Welcome To Rock Paper Scissor Game!!</p>
+    <center><img
+            src="http://1.bp.blogspot.com/-WRwkO6zQzKk/TxSKST02agI/AAAAAAAAAWI/2fvd5171Lro/s1600/rock-paper-scissors.png"
+            alt="Game picture" width="500" height="500"></center>
+
+</head>
+<form action="newpage" method="get">
+    <body style="background-color:grey;">
+    <p style="color:red;font-size:30px;text-align:center">How do you like to play this game</p>
+    <p style="font-size:20px;text-align:center"><input type="radio" name="With" value="Natasha-System">Natasha</p>
+    <p style="font-size:20px;text-align:center"><input type="radio" name="With" value="Friend">Friend</p>
+    <p style="font-size:20px;text-align:center"><input type="radio" name="With" value="Random Friend">Random Friend</p>
+    <br>
+
+    <div style="font-size:20px;text-align:center">
+        <button name='player' type="submit" onclick="displayRadioValue()">
+            Submit
+        </button>
+    </div>
+
+    </br>
+
+    <div id="result"></div>
+    <script>
+        function displayRadioValue() { 
+            var ele = document.getElementsByName('With'); 
+              
+            for(i = 0; i < ele.length; i++) { 
+                if(ele[i].checked) 
+                document.getElementById("result").innerHTML
+                        = "Selected Player: "+ele[i].value; 
+            } 
+        } 
+		
+		
+
+    </script>
+
+
+    </body>
+</form>
+</html>
+

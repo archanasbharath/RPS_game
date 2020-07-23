@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissor-Page2</title>
+    <p style="color:red;font-size:80px;text-align:center">{{ data }} Versus You</p>
+</head>
+
+<!--<form id='formName' name='formName' onsubmit='redirect();return false;'>-->
+<!--<form action="formName" >-->
+<form action="includes" method="get">-->
+    <body style="background-color:grey;">
+       <!--<form name=""  method="GET">-->
+
+       <fieldset>
+           <div class="wrap">
+               <label for="Rock"><img src="https://www.foreverbamboo.com/media/catalog/product/cache/1/image/2000x/9df78eab33525d08d6e5fb8d27136e95/f/a/fake-rock-small-boulder-rock.jpg" style="width: 350px;"></label>
+              <input type="radio" name="user_input" value="Rock">
+
+
+                <label for="Paper"><img src ="https://4.imimg.com/data4/BO/VB/MY-3078649/gsm-paper-250x250.jpg" style="width: 350px;"></label>
+                <input type="radio" name="user_input" value="Paper">
+
+                <label for="Scissor"><img src ="http://3.bp.blogspot.com/-VYQRJNZT9jY/UENrGRGH2UI/AAAAAAAAAd4/Q-cHmj9SEjk/s1600/open+scissors.jpg" style="width: 350px;"></label>
+                <input type="radio" name="user_input" value="Scissor">
+           </div>
+       </fieldset>
+
+
+    <div style="font-size:20px;text-align:center">
+        <button name='' type="submit" onclick="displayRadioValue1()">
+            Submit
+        </button>
+    </div>
+
+    </br>
+
+    <div id="result"></div>
+    <script>
+        function displayRadioValue1() {
+            var ele = document.getElementsByName('user_input');
+
+            for(i = 0; i < ele.length; i++) {
+                if(ele[i].checked)
+                document.getElementById("result").innerHTML
+                        = "You Picked: "+ele[i].value;
+            }
+        }
+
+
+
+    </script>
+
+     {{c}}
+       <!--</form>-->
+    </body>
+</form>
+<!--</form>-->
+
+</html>
+ 

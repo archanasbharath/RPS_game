@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rock Paper Scissor-Page3</title>
+    <p style="color:red;font-size:40px;text-align:center">{{ data }} </p>
+    <p style="color:red;font-size:40px;text-align:center">{{c}}</p>
+    <p style="color:red;font-size:40px;text-align:center">{{v}}</p>
+    <p style="color:red;font-size:40px;text-align:center">{{v1}}</p>
+    <p style="color:red;font-size:40px;text-align:center">{{ww}}</p>
+    <p style="color:red;font-size:40px;text-align:center">ROUND:{{request.session.c_count}}</p>
+
+</head>
+<body style="background-color:grey;">
+<div style="font-size:40px;text-align:center">
+    <input type="button" id="kk" value="Continue!" onclick=history.go(-1) />
+    {% if request.session.c_count == 5 %}
+          <p style="color:red;font-size:40px;text-align:center">!!Game Over!!</p>
+
+          <p style="color:red;font-size:40px;text-align:center">Your Final Score:{{user}}</p>
+          <p style="color:red;font-size:40px;text-align:center">System Final Score:{{system}}</p>
+          <p style="color:red;font-size:40px;text-align:center">!!!{{mm}}!!!</p>
+          <!--<input type="button" id="kk" disabled/>-->
+          <input type="submit" value="play again" onclick="location.href='{% url 'home' %}'"/>
+
+
+    {% endif %}
+
+</div>
+</body>
+</html>
+
+
+
