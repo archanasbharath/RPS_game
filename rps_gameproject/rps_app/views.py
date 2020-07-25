@@ -175,6 +175,14 @@ def includes(request):
                    'system': request.session['sys_score'], 'mm': msg})
 
 
-#
-#
+def ShowChatHome(request):
+    return render(request,"chat_home.html")
+
+def ShowChatPage(request,room_name,person_name):
+
+    print("room_name:", room_name)
+    print("person_name:", person_name)
+    return render(request,"chat_screen.html",{'room_name':room_name,'person_name':person_name})
+
+
 

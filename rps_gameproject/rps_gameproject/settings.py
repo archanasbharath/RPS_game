@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rps_app',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +82,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
 
@@ -119,3 +119,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+ASGI_APPLICATION="rps_gameproject.routing.application"
+
+CHANNEL_LAYERS={
+    "default":{
+        "BACKEND":"channels.layers.InMemoryChannelLayer"
+
+    }
+}
