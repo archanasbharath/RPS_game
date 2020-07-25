@@ -2,29 +2,89 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
 from .models import Score
+from cryptography.fernet import Fernet
 import bcrypt
-
 import sqlite3
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=30000
+)
+def encrypt_password(password):
+    return pwd_context.encrypt(password)
+
+
+def check_encrypted_password(password, hashed):
+    return pwd_context.verify(password, hashed)
 
 def register(request):
+    return render(request, 'register.html')
 
-    return render(request,'register.html')
 
-def login(request):
+def check(request):
     name = request.GET.get("Name")
     mail = request.GET.get("MailID")
     passw = request.GET.get("password")
-    hashable_pw = bytes(passw, encoding='utf-8')
-    hashed_pw = bcrypt.hashpw(hashable_pw, bcrypt.gensalt())
     conn = sqlite3.connect('db.sqlite3')
     cc = conn.cursor()
-    cc.execute("INSERT INTO rps_app_user (User_Name, Mail_id,password) VALUES(?, ?,?)",
-               (name,mail,  hashed_pw))
-    conn.commit()
-    print("User-Registration Data added to database successfully")
+    cc.execute("SELECT * from rps_app_user where User_Name=? and Mail_id=?", (name, mail))
+    records = cc.fetchall()
+    #hashable_pw = bytes(passw, encoding='utf-8')
+    #hashed_pw = bcrypt.hashpw(hashable_pw, bcrypt.gensalt())
+    #print("Total rows are:  ", len(records))
+    encrypted = encrypt_password(passw)
+    print("encrypted:", encrypted)
+    #encrypted=encrypt(passw)
+    if len(records) > 0:
+        msg = 0
+    else:
+        cc.execute("INSERT INTO rps_app_user (User_Name, Mail_id,password) VALUES(?, ?,?)",
+                   (name, mail, encrypted))
+        conn.commit()
+        msg = 1
+        cc.close()
+        conn.close()
+    return render(request, 'register.html', {'data': msg})
+
+
+def login(request):
+    return render(request, 'login.html')
+
+
+def checklogin(request):
+    name = request.GET.get("Name")
+
+    passw = request.GET.get("password")
+    #hashable_pw = bytes(passw, encoding='utf-8')
+    #print(hashable_pw)
+    #hashed_pw = bcrypt.hashpw(hashable_pw, bcrypt.gensalt())
+    #print(hashed_pw)
+    # print(hashed_pw)
+
+    conn = sqlite3.connect('db.sqlite3')
+    cc = conn.cursor()
+    query_str = "SELECT password from rps_app_user where User_Name='"+name+"'"
+    print(query_str)
+    #cc.execute("SELECT password from rps_app_user where User_Name=?", (name))
+    cc.execute(query_str)
+    passwd_from_db = cc.fetchall()
+    #if bcrypt.checkpw(passw,hashed_pw):
+    print("db---:", type(passwd_from_db))
+    print("db---1:", type(passwd_from_db[0]))
+    decrypted = check_encrypted_password(passw, passwd_from_db[0][0])
+    print(decrypted)
+    if decrypted:
+        msg = 0
+    else:
+        msg = 1
+    # hashable_pw = bytes(passw, encoding='utf-8')
+    # hashed_pw = bcrypt.hashpw(hashable_pw, bcrypt.gensalt())
     cc.close()
     conn.close()
-    return render(request,'login.html')
+    return render(request, 'login.html', {'data': msg})
+
 
 def home(request):
     # request.session['c_count'] = 1
@@ -44,12 +104,11 @@ def newpage(request):
     return render(request, 'newpage.html', {'data': data_a})
 
 
-
 def includes(request):
     x = request.session['c_count'] + 1
     request.session['c_count'] = x
     print("session-keys2:", request.session.keys())
-    msg=''
+    msg = ''
     # request.session['c_count'] =
     b = request.GET["user_input"]
     data_c = 'Your choice:' + b
@@ -107,17 +166,15 @@ def includes(request):
         print("Data added to database successfully")
         cc.close()
         conn.close()
-        if request.session['user_score']> request.session['sys_score']:
-            msg ="You Won the Game"
+        if request.session['user_score'] > request.session['sys_score']:
+            msg = "You Won the Game"
         else:
-            msg ="System Won the Game"
+            msg = "System Won the Game"
     return render(request, 'includes.html',
                   {'data': data_c, 'c': d, 'v': val1, 'v1': val2, 'ww': win, 'user': request.session['user_score'],
-                   'system': request.session['sys_score'],'mm':msg})
+                   'system': request.session['sys_score'], 'mm': msg})
 
 
 #
 #
 from django.shortcuts import render
-
-

@@ -20,8 +20,10 @@ from rps_app import views
 urlpatterns = [
     #path('admin/', admin.site.urls),
     path('', views.register, name='register'),
+    path('check/', views.check, name='check'),
     path('login/', views.login, name='login'),
-    path('login/home/', views.home, name='home'),
+    path('login/checklogin/', views.checklogin, name='checklogin'),
+    path('checklogin/home/', views.home, name='home'),
     path('login/home/newpage/', views.newpage, name='newpage'),
     path('login/home/newpage/includes/', views.includes, name='includes'),
 ]

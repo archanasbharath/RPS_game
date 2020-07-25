@@ -4,7 +4,7 @@
 <h1> Game-Login Page</h1>
 </head>
 <body>
-<form action="home" method="get">
+<form action="checklogin" method="get">
 	<table>
 		<tr>
 
@@ -32,5 +32,14 @@
         </button>
     </div>
 </form>
+{% if data == 0 %}
+
+<p>Login successful</p>
+
+<input type="submit" value="Proceed" onclick="location.href='{% url 'home' %}'"/>
+{% elif data == 1 %}
+<p>Login Unsuccessful.Please try again</p>
+
+{% endif %}
 </body>
 </html>
