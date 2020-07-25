@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from rps_app import views
+from django.urls import include
 
 urlpatterns = [
     #path('admin/', admin.site.urls),
@@ -26,4 +27,6 @@ urlpatterns = [
     path('checklogin/home/', views.home, name='home'),
     path('checklogin/home/newpage/', views.newpage, name='newpage'), # was login/home/newpage before
     path('checklogin/home/newpage/includes/', views.includes, name='includes'),
+    path('chat/', include('rps_app.urls'))
+
 ]
