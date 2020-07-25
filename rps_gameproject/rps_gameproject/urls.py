@@ -24,6 +24,6 @@ urlpatterns = [
     path('login/', views.login, name='login'),
     path('login/checklogin/', views.checklogin, name='checklogin'),
     path('checklogin/home/', views.home, name='home'),
-    path('checklogin/home/newpage/', views.newpage, name='newpage'),
+    path('checklogin/home/newpage/', views.newpage, name='newpage'), # was login/home/newpage before
     path('checklogin/home/newpage/includes/', views.includes, name='includes'),
 ]
